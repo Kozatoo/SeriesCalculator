@@ -23,6 +23,8 @@ def arithmetic_sum(n):
 
 
 def pentagonal_series(n):
+    if n == 0 :
+        return 0
     if n < 1:
         raise ValueError("The given number must be greater than 1")
     return (n * n * 3 - n) // 2

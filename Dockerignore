@@ -5,3 +5,10 @@ database.db
 __pycache__/
 tests/
 Dockerfile
+venv/
+.idea/
+database.db
+.pytest_cache
+__pycache__/
+tests/
+Dockerfile

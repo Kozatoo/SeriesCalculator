@@ -1,4 +1,4 @@
 pytest
 pytest-cov
 unittest
--r requierments.txt
+-r requirements.txt

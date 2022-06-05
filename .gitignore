@@ -1,0 +1,4 @@
+venv/
+.idea/
+database.db
+.pytest_cache

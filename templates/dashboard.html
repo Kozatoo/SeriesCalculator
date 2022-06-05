@@ -1,0 +1,67 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ url_for('index') }}">My Sequences</a>
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ><a href="{{url_for('index')}}">Home</a></li>
+                <li class="active"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('calculator') }}">Calculator</a></li>
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Welcome, {{ name }}</h1>
+        <table>
+            <thead><tr>
+                <th>Series Type</th>
+                <th>input</th>
+                <th>output</th>
+            </tr></thead>
+            <tbody>
+              {% for row in calculations %}
+                <tr >
+                    <td>{{ row.type }}</td>
+                    <td>{{ row.input }}</td>
+                    <td>{{ row.output }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <a href="./suminputs">
+            <button>Calculate input sum</button>
+        </a>
+        <a href="./sumoutputs">
+            <button>Calculate output sum</button>
+        </a>
+      </div>
+    </div>
+{% endblock %}

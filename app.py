@@ -64,7 +64,7 @@ def login():
         if user:
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
-                return redirect(url_for('index'))
+                return render_template('connected.html',name=form.username.data)
 
         return '<h1>Invalid username or password</h1>'
 
@@ -81,7 +81,7 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        return '<h1>New user has been created!</h1>'
+        return render_template('createdAccount.html', name=form.username.data)
 
     return render_template('signup.html', form=form)
 

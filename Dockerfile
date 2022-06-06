@@ -12,4 +12,5 @@ COPY . .
 
 EXPOSE 5000
 
+RUN python ./app/flaskr/utli/createdb.py
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

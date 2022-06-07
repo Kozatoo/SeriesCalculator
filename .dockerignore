@@ -5,3 +5,4 @@ database.db
 __pycache__/
 tests/
 Dockerfile
+requirements-dev.txt

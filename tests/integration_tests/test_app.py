@@ -62,5 +62,23 @@ def test_login(test_client):
     assert expected_status_code == response.status_code
     assert expected_page_content in response.data
 
+#
+def test_fibonacci(test_client):
+    #given
+    request_url ="/calculator/fibonacci/5"
+    expected_status_code = 200
+    expected_response = "New calculation has been created 5!"
+    #when
+    response= test_client.get('/calculator/fibonacci/5', follow_redirects=True)
+    #then
+    assert expected_status_code == response.status_code
+    print(response.data)
 
-
+def test_fibonacci_wrong_value(test_client):
+    #given
+    request_url ="/calculator/fibonacci/-5"
+    expected_status_code = 302
+    #when
+    response= test_client.get('/calculator/fibonacci/5')
+    #then
+    assert expected_status_code == response.status_code

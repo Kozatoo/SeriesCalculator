@@ -111,7 +111,10 @@ def calculator():
 @login_required
 def fibonacci(input):
     input=int(input)
+    print(input)
     inp = input
+    if inp<0 :
+        return "<h1> No Response for you sir! </h1>",302
     output = series.fibonacci(inp)
     calculation = Calculation(input=input, output=output, owner=current_user.id, type="fibonacci")
     db.session.add(calculation)
@@ -143,7 +146,7 @@ def arithmetic_sum(input):
     db.session.add(calculation)
     db.session.commit()
 
-    return '<h1>New calculation has been created!' + str(output) + '</h1>'
+    return '<h1>New calculation has been created ' + str(output) + '!</h1>'
 
 
 @app.route('/calculator/pentagonal_series/<input>')

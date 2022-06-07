@@ -6,3 +6,6 @@ __pycache__/
 tests/
 Dockerfile
 requirements-dev.txt
+.gitignore
+*readme*
+.github

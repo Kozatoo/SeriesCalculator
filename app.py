@@ -34,11 +34,9 @@ class Calculation(db.Model):
     input = db.Column(db.Integer)
     output = db.Column(db.Integer)
 
-
 @app.before_first_request
 def create_tables():
     db.create_all()
-
 
 @login_manager.user_loader
 def load_user(user_id):

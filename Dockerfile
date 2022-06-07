@@ -9,8 +9,8 @@ RUN pip3 install -r requirements.txt
 COPY . .
 
 
+RUN python ./flaskr/util/createdb.py
 
 EXPOSE 5000
 
-ENTRYPOINT python ./flaskr/util/createdb.py
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

@@ -1,6 +1,7 @@
 import pytest
 from app import app
 from flaskr.util.createdb import create_db
+from unittest.mock import patch
 import os
 
 
@@ -16,13 +17,14 @@ def create_test_database(tmp_path_factory):
 def test_client():
     flask_app = app
     testing_client = flask_app.test_client(use_cookies=False)
+    flask_app.config['WTF_CSRF_ENABLED'] = False
     context = flask_app.app_context()
     context.push()
     yield testing_client
     context.pop()
 
 
-def test_access_unpriveleged_page(test_client):
+def test_create_user(test_client):
     # Given
     request_payload = {
         "username": "foulen",
@@ -30,23 +32,34 @@ def test_access_unpriveleged_page(test_client):
         "password": "12345678"
     }
 
+    expected_page_content=b"You have created an account foulen"
     expected_status_code = 200
-    expected_path = "/login"
 
 
-    # When
-    response = test_client.get('/dashboard', follow_redirects=True)
+    #When
+    response = test_client.post('/signup', data=request_payload, follow_redirects=True)
 
     # Then
-    print(response.request.path)
-    print(response.history)
-    print(response.status_code)
-
     assert expected_status_code == response.status_code
-    assert expected_path == response.request.path
+    assert expected_page_content in response.data
+
+def test_login(test_client):
+    # Given
+    request_payload = {
+        "username": "foulen",
+        "password": "12345678"
+    }
+
+    expected_page_content=b"You have connected foulen"
+    expected_status_code = 200
 
 
+    #When
+    response = test_client.post('/login', data=request_payload, follow_redirects=True)
 
+    # Then
+    assert expected_status_code == response.status_code
+    assert expected_page_content in response.data
 
 
 

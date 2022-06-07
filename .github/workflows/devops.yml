@@ -33,7 +33,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - unitTests
-      - integrationTests
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -51,4 +50,25 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/series_calculator:latest
+  Deploy:
+    needs: Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy in EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY  }}
+          HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
+          USER_NAME: ubuntu
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            sudo docker container stop endorsebase_app
+            sudo docker container rm endorsebase_app
+            sudo docker image rm ${{ secrets.DOCKER_HUB_USERNAME }}/endorsebase
+            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/endorsebase:latest
+            sudo docker run -d -p 80:3000 --name endorsebase_app ${{ secrets.DOCKER_HUB_USERNAME }}/endorsebase 
+          '
+
 

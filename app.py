@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
@@ -10,7 +12,10 @@ from flaskr.services import series
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'someVerySecretKey!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+if(os.environ.get("DATABASE_FILENAME", "database.db") == "database.db"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.environ.get("DATABASE_FILENAME", "database.db")
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()

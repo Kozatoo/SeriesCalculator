@@ -10,17 +10,17 @@ def create_db(database_filename):
     cur = con.cursor()
 
     # Drop users table if already exsist.
-    cur.execute("DROP TABLE IF EXISTS user")
-    cur.execute("DROP Table IF EXISTS calculation")
+    cur.execute("DROP TABLE IF EXISTS users")
+    cur.execute("DROP Table IF EXISTS calculations")
     # Create users table  in db_web database
-    sql = '''CREATE TABLE "user" (
+    sql = '''CREATE TABLE "users" (
 			"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 			"username"	TEXT,
 			"email"	TEXT,
 			"password" TEXT
 		)'''
     cur.execute(sql)
-    sql = '''CREATE TABLE "calculation" (
+    sql = '''CREATE TABLE "calculations" (
             "id" INTEGER PRIMARY KEY AUTOINCREMENT,
             "owner" INTEGER,
             "type" TEXT,

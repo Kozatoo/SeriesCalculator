@@ -12,5 +12,5 @@ COPY . .
 
 EXPOSE 5000
 
-RUN python ./flaskr/util/createdb.py
+ENTRYPOINT python ./flaskr/util/createdb.py
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

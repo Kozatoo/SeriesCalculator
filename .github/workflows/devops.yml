@@ -68,7 +68,7 @@ jobs:
             sudo docker container rm my_app
             sudo docker image rm ${{ secrets.DOCKER_HUB_USERNAME }}/series_calculator 
             sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/series_calculator:latest
-            sudo docker run -d -p 80:3000 --name my_app ${{ secrets.DOCKER_HUB_USERNAME }}/series_calculator 
+            sudo docker run -d -p 5000:5000 --name my_app ${{ secrets.DOCKER_HUB_USERNAME }}/series_calculator 
           '
 
 

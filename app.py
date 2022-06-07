@@ -12,10 +12,7 @@ from flaskr.services import series
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'someVerySecretKey!'
-if(os.environ.get("DATABASE_FILENAME", "database.db") == "database.db"):
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.environ.get("DATABASE_FILENAME", "database.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
